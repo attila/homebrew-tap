@@ -1,0 +1,57 @@
+name: CI
+
+on:
+  push:
+    branches: [trunk]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  formula:
+    name: Audit and test on ${{ matrix.os }}
+    runs-on: ${{ matrix.os }}
+    timeout-minutes: 20
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [macos-latest, ubuntu-latest]
+    steps:
+      # Installs Homebrew where the runner has none, checks this repository out,
+      # and registers it as a tap. It replaces a checkout step, so there is none.
+      - name: Set up Homebrew
+        id: set-up-homebrew
+        uses: Homebrew/actions/setup-homebrew@1e34f2e2acaa766b7efacb8c26352e6abbb023f9 # 2026.09.13.1
+
+      - name: Cache the Homebrew bundler gems
+        id: cache
+        uses: actions/cache@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0
+        with:
+          path: ${{ steps.set-up-homebrew.outputs.gems-path }}
+          key: ${{ runner.os }}-rubygems-${{ steps.set-up-homebrew.outputs.gems-hash }}
+          restore-keys: ${{ runner.os }}-rubygems-
+
+      - name: Install the Homebrew bundler gems
+        if: steps.cache.outputs.cache-hit != 'true'
+        run: brew install-bundler-gems
+
+      - name: Check the formula style
+        run: brew style attila/tap
+
+      - name: Audit every formula
+        run: brew audit --strict --tap attila/tap
+
+      # Loops over the tap's formulae so a new one is covered without editing
+      # this workflow.
+      - name: Install and test every formula
+        run: |
+          for file in "$(brew --repository attila/tap)"/Formula/*.rb; do
+            formula="attila/tap/$(basename "$file" .rb)"
+            brew install --build-from-source "$formula"
+            brew test "$formula"
+          done
