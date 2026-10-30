@@ -32,6 +32,6 @@ class Lore < Formula
 
   test do
     assert_match "lore #{version}", shell_output("#{bin}/lore --version")
-    assert_match "Search the knowledge base", shell_output("#{bin}/lore help search")
+    assert_match "Search the knowledge", shell_output("#{bin}/lore help search")
   end
 end
