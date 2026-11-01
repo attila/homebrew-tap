@@ -20,7 +20,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        os: [macos-latest, ubuntu-latest]
+        os: [macos-latest, ubuntu-latest, ubuntu-24.04-arm]
     steps:
       # Installs Homebrew where the runner has none, checks this repository out,
       # and registers it as a tap. It replaces a checkout step, so there is none.

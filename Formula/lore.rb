@@ -1,7 +1,6 @@
 # The release archives carry the version in their names, so Homebrew reads it
 # from the URLs. Declaring it as well is redundant and `brew audit --strict`
-# rejects it. Linux ships a glibc build here; the musl archive in the same
-# release is not packaged.
+# rejects it. Intel Linux takes the glibc build, not the musl one.
 class Lore < Formula
   desc "Local semantic search MCP server for software patterns"
   homepage "https://github.com/attila/lore"
@@ -20,6 +19,11 @@ class Lore < Formula
   end
 
   on_linux do
+    on_arm do
+      url "https://github.com/attila/lore/releases/download/v0.6.0/lore-0.6.0-aarch64-unknown-linux-musl.tar.gz"
+      sha256 "5a4f62b34ffe858d6f467bb2cb499e450da3995be1cfa5709984363bff3e42bf"
+    end
+
     on_intel do
       url "https://github.com/attila/lore/releases/download/v0.6.0/lore-0.6.0-x86_64-unknown-linux-gnu.tar.gz"
       sha256 "9bf84425ebd5e32190a33104efb2ab4e9718bff036f2ab74cf3c6e7f4316c1e5"
