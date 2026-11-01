@@ -9,20 +9,20 @@ class Lore < Formula
 
   on_macos do
     on_arm do
-      url "https://github.com/attila/lore/releases/download/v0.5.0/lore-0.5.0-aarch64-apple-darwin.tar.gz"
-      sha256 "ad0b5d777a92b9a6df5429d122a8e40481ed0cf5b89ffde1e2b7aa60324746a4"
+      url "https://github.com/attila/lore/releases/download/v0.6.0/lore-0.6.0-aarch64-apple-darwin.tar.gz"
+      sha256 "14154569e82d59e89d61ae5d7c08d1ecb16d63af449b30a6066c097c35c4ac78"
     end
 
     on_intel do
-      url "https://github.com/attila/lore/releases/download/v0.5.0/lore-0.5.0-x86_64-apple-darwin.tar.gz"
-      sha256 "dffb67cea348e026296ee1c0a1288efeb78ade5c31eff346c8503b7a951ffc55"
+      url "https://github.com/attila/lore/releases/download/v0.6.0/lore-0.6.0-x86_64-apple-darwin.tar.gz"
+      sha256 "2bb892270e8ff69cbabb62987588406e90917bc442420b5cc66fafb5f5990c9a"
     end
   end
 
   on_linux do
     on_intel do
-      url "https://github.com/attila/lore/releases/download/v0.5.0/lore-0.5.0-x86_64-unknown-linux-gnu.tar.gz"
-      sha256 "aff4db1dd630b88a4e0f9aa74ffeaf9657569b7eac606d11bea6d14aca425a1b"
+      url "https://github.com/attila/lore/releases/download/v0.6.0/lore-0.6.0-x86_64-unknown-linux-gnu.tar.gz"
+      sha256 "9bf84425ebd5e32190a33104efb2ab4e9718bff036f2ab74cf3c6e7f4316c1e5"
     end
   end
 
